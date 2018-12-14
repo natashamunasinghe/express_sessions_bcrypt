@@ -2,6 +2,9 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const morgan = require("morgan");
 const expressSession = require("express-session");
+//expressSession is a name we have made up and its a function that we are passing through connect mongo package
+const MongoStore = require("connect-mongo")(expressSession);
+const mongoose = require("mongoose");
 const app = express();
 
 
@@ -14,7 +17,8 @@ app.use(expressSession({
     saveUninitialized: true,
     cookie: {
         expires: 600000
-    }
+    },
+    store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 
 app.use(express.urlencoded({ extended: false }));

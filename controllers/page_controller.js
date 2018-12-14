@@ -5,9 +5,16 @@ function index (req, res) {
     //.views is something we make up (can be any name)
     req.session.views = req.session.views ? req.session.views + 1 : 1;
     res.json(req.session.views);
+    //this renders "welcome" on index page
+    // res.send("welcome");
+}
+
+function dashboard (req, res) {
+    res.json(req.session.user);
+
 }
 
 module.exports = {
-    index
-
+    index,
+    dashboard
 }
