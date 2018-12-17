@@ -4,6 +4,7 @@ const PageController = require("./../controllers/page_controller");
 const AuthenticationController = require("./../controllers/authentication_controller");
 const { celebrate, Joi } = require("celebrate");
 const{ authorize, authDirect } = require("./../middleware/authentication_middleware");
+const passport = require("passport");
 
 //these 2 .use methods make this authRedirect avail to all routes for /register (e.g. /register/2) and /login
 router.use("/register", authDirect);
@@ -20,7 +21,10 @@ router.post("/login", celebrate({
         email: Joi.string().required(),
         password: Joi.string().required(),
     }
-}), AuthenticationController.loginVerify);
+}), passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login"
+}));
 
 router.get("/register", AuthenticationController.make);
 

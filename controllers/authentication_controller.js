@@ -7,22 +7,22 @@ function loginForm (req, res) {
 
 //verifies login information
 async function loginVerify (req, res) {
-    const { email } = req.body
-    const user = await UserModel.findOne({email});
+    // const { email } = req.body
+    // const user = await UserModel.findOne({email});
 
-    if (!user) {
-        return res.redirect("/login");
-    }
+    // if (!user) {
+    //     return res.redirect("/login");
+    // }
 
-    //we can use .verifyPassword because we are using Bcrypt
-    const valid = await user.verifyPassword(password)
+    // //we can use .verifyPassword because we are using Bcrypt
+    // const valid = await user.verifyPassword(password)
 
-    if(!valid) {
-        return res.redirect("/login");
-    }
+    // if(!valid) {
+    //     return res.redirect("/login");
+    // }
 
-    req.session.user = user;
-    res.redirect("/dashboard");
+    // req.session.user = user;
+    // res.redirect("/dashboard");
 }
 
 //shows registration form
@@ -42,6 +42,12 @@ async function create (req, res) {
      res.redirect("/dashboard");
 
 }
+
+function show (req, res) {
+    res.render("authentication/show");
+
+}
+
 
 function logout (req, res) {
     req.session.destroy(() => {

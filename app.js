@@ -5,6 +5,7 @@ const expressSession = require("express-session");
 //expressSession is a name we have made up and its a function that we are passing through connect mongo package
 const MongoStore = require("connect-mongo")(expressSession);
 const mongoose = require("mongoose");
+const passport = require("passport");
 const app = express();
 
 
@@ -23,6 +24,10 @@ app.use(expressSession({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+require("./config/passport");
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(morgan("combined"));
 
